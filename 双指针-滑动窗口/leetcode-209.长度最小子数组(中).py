@@ -23,26 +23,20 @@ def minSubArrayLen_force(nums,t):
 def minSubArrayLen_SlidingWindow(nums,t):
     min_Array_length = float("inf")
     left = 0
-    min_array = []
+
     for right in range(0,len(nums)):
         if sum(nums[left:right]) < t and sum(nums[left:right+1]) >= t:      #   这个条件表示right位算进子数组中子数组才会>=t；
-            #   这个地方有个需要注意的，a[0:0] -> [];sum(a[0:0])->0，所以这个地方只能用：sum(nums[left:right]) < t and sum(nums[left:right+1])判断；
+            #   这个地方有个需要注意的，a[0:0] -> [];sum(a[0:0])->0，所以这个地方只能用：sum(nums[left:right]) < t and sum(nums[left:right+1]) >= t 判断；
             if right+1-left < min_Array_length:     #   先判断并记录本次子数组的长度和内容
-
                 min_Array_length = right+1-left
-                min_array = nums[left:right+1]
-            while (left < right):
-                if sum(nums[left:right]) >= t:          #   临界值：nums[right:right]
-                    min_Array_length = right + 1 - left
-                    min_array = nums[left:right + 1]
+
+            while (left <= right):                      #  left右移动，准备开始缩小窗口
+                if sum(nums[left:right+1]) >= t:          #   临界值：nums[right:right]
+                    min_Array_length = right+1-left if right+1-left < min_Array_length else min_Array_length
                     left += 1
                     continue
                 left += 1
-                break
+
     if min_Array_length == float("inf"):        #   满足题目条件，无大于t的子数组返回0
         min_Array_length = 0
     return min_Array_length
-
-nums = [6,1,1,30,2,6,2]
-t = 7
-print(minSubArrayLen_SlidingWindow(nums,t))
