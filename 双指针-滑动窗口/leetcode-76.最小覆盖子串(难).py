@@ -35,7 +35,7 @@ def IsInclude(current_SubStrig,t):      #   是否包含了子串，包含则返
 
 #   方法二：滑动窗口
 #   这道题在leetcode上的难度是困难，个人感觉之所以是困难不是因为滑动窗口不好理解，而是 “如何在滑动窗口中判断是否包含了正确的字符、字符数量” 不好处理；
-def minWindow_S(s,t):
+def minWindow_SlidingWindow(s,t):
     min_SubString = float("inf")
     current_window = ""
     current_window_dict = {}
