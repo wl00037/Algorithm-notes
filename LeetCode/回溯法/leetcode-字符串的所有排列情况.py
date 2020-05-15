@@ -9,10 +9,9 @@
 #   1、
 
 def permutation(S):
-    if S == '': return []
-    res = []
-    path = ''
+    res,path = [],''
     def backtrack(S, path, res):
+        print("本次传入的param为：",S,path,res)
         if S == '':
             res.append(path)
             return
@@ -24,4 +23,5 @@ def permutation(S):
 
 if __name__ == "__main__":
     s = 'abc'
-    print(permutation(s))
+    #print(permutation(s))
+    permutation(s)
