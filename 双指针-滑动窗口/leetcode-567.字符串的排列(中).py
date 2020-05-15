@@ -12,10 +12,15 @@
 #   该题目其实和“76-最小覆盖子串”比较类似，也就是说一个子串中包含了s1的所有字符串，所谓的“排列”其实就是不在乎顺序，有就行，也就是说又要用到统计了
 
 #   方法一：暴力法
-#   思路很简单，组合所有可出现的并且长度和s1一样的子串，利用统计来判断每个字符以及字符出现的次数是否完全一致即可
-
-from collections import Counter
+#   思路很简单，筛选出长长度和s1相同的子串，并且拿到该子串所有排列情况，挨个与s1进行比较，有匹配上的即可；
+#   比如：s1 = "qwe"  -> ["qwe","wqe","weq","qew","eqw","ewq"]；数组中有任意一个和s2的子串匹配上的就表示s2具有s1的排列；
 def checkInclusion_force(s1,s2):
+    pass
+
+#   方法二：利用字典进行统计统计
+#   思路很简单，组合所有可出现的并且长度和s1一样的子串，利用统计来判断每个字符以及字符出现的次数是否完全一致即可
+from collections import Counter
+def checkInclusion_UseDict(s1,s2):
     s1_counter = Counter(s1)
     for i in range(0,len(s2)-len(s1)+1):        #   +1 注意一下
         current_str = s2[i:i+len(s1)]
