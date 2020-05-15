@@ -6,12 +6,14 @@
 #   给出字符串 s = "abc"，得到所有的排列情况如下：['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
 
 #   解题思路：回溯法
-#   1、
+#   1、首先我们知道，n个字符的字符串共有n!个排列组合;
+#   2、
+#   3、
+
 
 def permutation(S):
     res,path = [],''
     def backtrack(S, path, res):
-        print("本次传入的param为：",S,path,res)
         if S == '':
             res.append(path)
             return
