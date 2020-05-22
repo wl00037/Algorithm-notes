@@ -5,23 +5,21 @@
 #   示例：
 #   给出字符串 s = "abc"，得到所有的排列情况如下：['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
 
-#   解题思路：回溯法
-#   1、
+#   先分析一下全排列题目中对于回溯法三个重点的解析：
+#   1、当前递归层可选则的内容：从上层传入的，上层剩下未选择的元素，就是本层可选的；
+#   2、当前递归层次已选择的内容：从上层未传入的元素每一个都可以作为本层已选择的元素，然后再传入下一层递归
+#   3、递归的出口：当上层传入的上层未选择的字符串为空，也就是说都选了，那么就可以跳出递归了；
 
-def permutation(S):
-    res,path = [],''        #   res是全局变量，用来保存每一个全路径；path则表示每次的全路径的值
-    def backtrack(S, path, res):        #   从当前的S中
-        if S == '':             #   结束条件，可以将全路径放到res中了
-            res.append(path)
-            return
-        for i in range(len(S)):
-            cur = S[i]
-            backtrack(S[:i] + S[i + 1:], path + cur, res)
-            #   S[:i] + S[i + 1:] -> 刨除 S[i] 后的所有字符
-    backtrack(S, path, res)
-    return res
 
-if __name__ == "__main__":
-    s = 'aac'
-    #print(permutation(s))
-    permutation(s)
+def backtrack(S, path):        #   从当前的S中
+    if S == '':             #   结束条件，可以将全路径放到res中了
+        res.append(path)
+        return
+    for i in range(len(S)):
+        backtrack(S[:i] + S[i + 1:], path+S[i])
+
+S = 'abc'
+path = ''
+res = []
+backtrack(S, path)
+print(res)
