@@ -9,16 +9,17 @@ class ListNode(object):             #   指针结构定义
         self.next = None
 
 class Solution(object):
+
     def hasCycle(self, head):
-        slow,fast = head,head
-        while (slow != fast):
+        if head == None or head.next == None:           #   保证head或者head.next不为None
+            return False
+        slow,fast = head,head.next                      #   快慢指针开始的index必须不同，while要用这个做判断
+        while (fast != None and fast.next != None):     #   这里用fast和fast.next判断不为None，主要是因为不能出现fast.next=None时，fast.next.next=None.next报错
             slow = slow.next
             fast = fast.next.next
-            if slow
-
-
-
-
+            if fast == slow:                            #   slow和fast更新后，判断，如果不相同则继续向前，如果fast为空了，那么就不满足循环条件，并且返回False
+                return True
+        return False
 
 if __name__ == "__main__":
 
@@ -31,7 +32,7 @@ if __name__ == "__main__":
         if i<9:
             nodelist[i].next = nodelist[i+1]
         else:
-            nodelist[i].next = None
+            nodelist[i].next = None     #   如果指向：nodelist 则表示循环
 
     s = Solution().hasCycle(nodelist[0])
-    print(s.val)
+    print(s)
