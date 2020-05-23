@@ -5,7 +5,7 @@
 #   2、假设我们从head到入环点长度为a，然后fast和slow相同点在距离如环点b的地方，那么就有当前等式：(a+b)*2 = fast
 #   3、当前fast肯定已经在环上，并且可以得到等式：fast = a + b + nx  (x表示环的长度，n>=1)
 #   4、根据3、4可以得到等式：a+b = nx
-#   5、这里需要推倒一下，现在我们如果此时：slow从head向前走a，fast从meet点逆向走a，各自走a后的相遇点就是环入口
+#   5、这里需要推倒一下，现在我们如果此时：p1从head向前走，p2从meet点逆向走，相遇点就是环入口
 
 class ListNode(object):             #   指针结构定义
     def __init__(self, x):
