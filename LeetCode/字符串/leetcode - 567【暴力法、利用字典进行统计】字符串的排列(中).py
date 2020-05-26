@@ -31,7 +31,7 @@ def checkInclusion_force(s1,s2):
             return True
     return False
 
-#   方法二：利用字典进行统计统计
+#   方法二：利用字典进行统计
 #   思路很简单，组合所有可出现的并且长度和s1一样的子串，利用统计来判断每个字符以及字符出现的次数是否完全一致即可
 from collections import Counter
 def checkInclusion_UseDict(s1,s2):
