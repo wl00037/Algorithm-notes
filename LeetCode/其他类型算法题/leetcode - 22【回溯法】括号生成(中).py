@@ -7,6 +7,8 @@
 #   输出：[ "((()))" , "(()())" , "(())()" , "()(())" , "()()()" ]
 
 class Solution:
+
+    #   方法一：暴力法
     def generateParenthesis(self, n):
         def generate(A):
             if len(A) == 2*n:
@@ -31,6 +33,27 @@ class Solution:
         ans = []
         generate([])
         return ans
+
+    #   方法二：回溯法
+    def generateParenthesis(self, n: int) -> List[str]:
+        ans = []
+
+        def backtrack(S, left, right):
+            if len(S) == 2 * n:
+                ans.append(''.join(S))
+                return
+            if left < n:
+                S.append('(')
+                backtrack(S, left + 1, right)
+                S.pop()
+            if right < left:
+                S.append(')')
+                backtrack(S, left, right + 1)
+                S.pop()
+
+        backtrack([], 0, 0)
+        return ans
+
 
 result = Solution().generateParenthesis(5)
 print(result)
