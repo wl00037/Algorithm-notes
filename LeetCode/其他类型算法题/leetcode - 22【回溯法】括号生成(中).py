@@ -9,8 +9,20 @@
 class Solution:
 
     #   方法一：暴力法
+    #   思路：
+    #   1、n组，也就是2n个字符 -> n个"(" + n个")" ，组合起来也就是(2n)^2n，比如n=2，那就共有16种组合方式；
+    #   2、我们求出这16个组合方式，然后每个进行判断是否符合要求
+    #                                       root
+    #                       (                                               )
+    #               (               )                                (                    )
+    #           (       )       (        )                        (       )           (      )
+    #         (   )    (  )    (  )    (  )                      (  )    ( )         (  )   ( )
+    #
+    #       上面每一个从root到叶子节点的路径就是一个情况，我们要做的就是用代码计算得到这每一种情况
+
     def generateParenthesis(self, n):
         def generate(A):
+            #   参数A：A就是本次传入，存放
             if len(A) == 2*n:
                 if valid(A):
                     ans.append("".join(A))
@@ -35,9 +47,8 @@ class Solution:
         return ans
 
     #   方法二：回溯法
-    def generateParenthesis(self, n: int) -> List[str]:
+    def generateParenthesis(self, n: int):
         ans = []
-
         def backtrack(S, left, right):
             if len(S) == 2 * n:
                 ans.append(''.join(S))
