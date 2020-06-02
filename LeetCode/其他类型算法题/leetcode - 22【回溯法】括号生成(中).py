@@ -14,6 +14,7 @@ class Solution:
     #   2、我们求出这16个组合方式，然后每个进行判断是否符合要求
     #
     #                                           root
+    #
     #                       (                                               )
     #               (               )                                (                    )
     #           (       )       (        )                        (       )           (      )
@@ -25,7 +26,7 @@ class Solution:
         def generate(A):
             #   2n长度就是n组括号最大长度，无论是全是 ( 还是全是 ) 或是 ( 和 ) 随意组合，反正最长就2n
             if len(A) == 2*n:
-                if valid(A):
+                if valid(A):                    #   如果是一个递归到最下层的结果，则进行判断，是否是合法的；
                     ans.append("".join(A))
             else:
                 A.append('(')
@@ -36,19 +37,22 @@ class Solution:
                 A.pop()
 
         def valid(A):
+            #   判断思路：如果bal大于0，那么就表示(的数量大于)的数量，只要满足这个条件，就是合理的
             bal = 0
             for c in A:
-                if c == '(': bal += 1
-                else: bal -= 1
-                if bal < 0: return False
-            return bal == 0
-
+                if c == '(':
+                    bal += 1
+                else:
+                    bal -= 1
+                if bal < 0:
+                    return False        #   但凡出现)的数量大于(的数量，这个组合一定非法
+            return bal == 0             #   用bal == 0 判断，如果等于0，表示(的数量和)的数量一定是配对的，否则一定出现(和)数量不一致的情况，比关切是(数量大于)数量；
         ans = []
         generate([])
         return ans
 
     #   方法二：回溯法
-    def generateParenthesis(self, n: int):
+    def generateParenthesis(self, n):
         ans = []
         def backtrack(S, left, right):
             if len(S) == 2 * n:
@@ -56,16 +60,15 @@ class Solution:
                 return
             if left < n:
                 S.append('(')
-                backtrack(S, left + 1, right)
+                backtrack(S, left + 1, right)       #   这个地方的递归的意义是：当我们在这个地方选择放一个"("，就递归的去完成当这里放下"("后，后面位置所有的组合排列
                 S.pop()
-            if right < left:
+            if right < left:                        #   这个地方表示的是当这里放下的是")"，递归的去完成这里放下")"后，后面位置所有组合的全排列
                 S.append(')')
                 backtrack(S, left, right + 1)
                 S.pop()
-
+            #   这里的left < n和right <left是保证了所有排列的前提是满足 "合法性括号的要求的"；
         backtrack([], 0, 0)
         return ans
-
 
 result = Solution().generateParenthesis(5)
 print(result)
