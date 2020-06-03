@@ -16,11 +16,11 @@
 
 class Solution(object):
 
-    #   方法一：暴力法思路
-    #   
     def longestCommonSubsequence(self, text1, text2):
         """
         :type text1: str
         :type text2: str
         :rtype: int
         """
+        m , n = len(text1),len(text2)
+        dptable = [[0]*(m+1) for i in range(n+1)]       #生成一个 n+1行，m+1列的二维数组，元素全是0
