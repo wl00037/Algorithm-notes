@@ -8,7 +8,7 @@
 
 class Solution:
 
-    #   方法一：暴力法
+    #   方法一：暴力法：清除2n个index的所有情况，从 (((( 到 )))) 的全部情况，其实暴力法也是用的回溯思维，只不过没有条件限制，把所有情况都回溯出来了
     #   思路：
     #   1、n组，也就是2n个字符 -> n个"(" + n个")" ，组合起来也就是(2n)^2n，比如n=2，那就共有16种组合方式；
     #   2、我们求出这16个组合方式，然后每个进行判断是否符合要求
@@ -51,7 +51,7 @@ class Solution:
         generate([])
         return ans
 
-    #   方法二：回溯法
+    #   方法二：加了合法性条件的回溯法
     def generateParenthesis(self, n):
         ans = []
         def backtrack(S, left, right):
