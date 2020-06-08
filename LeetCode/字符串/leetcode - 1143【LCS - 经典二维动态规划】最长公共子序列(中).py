@@ -16,11 +16,27 @@
 
 class Solution(object):
 
-    def longestCommonSubsequence(self, text1, text2):
-        """
-        :type text1: str
-        :type text2: str
-        :rtype: int
-        """
-        m , n = len(text1),len(text2)
-        dptable = [[0]*(m+1) for i in range(n+1)]       #生成一个 n+1行，m+1列的二维数组，元素全是0
+    def longestCommonSubsequence(self, str1, str2):
+
+        #   为了方便填表，我们将str1作为短的长度短的字符串，将str2作为长度长的字符串;
+        #   for嵌套循环，外层为短字符串，内层为长字符串;
+
+        if len(str1)>len(str2):
+            str1,str2 = str2,str1
+
+        short_len = len(str1) + 1    # +1 是为了保证base case
+        long_len = len(str2) + 1
+
+        #	生成 dp table，根据len1和len2的大小
+        dp = [[0]*long_len for i in range(0,short_len)]        #   这里注意生成的矩阵和嵌套for循环，搞反了就会超出范围
+        for i in range(1, short_len):
+            for j in range(1, long_len):
+                if str1[i-1] == str2[j-1]:
+                    dp[i][j] = dp[i-1][j-1] + 1
+                if str1[i-1] != str2[j-1]:
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+
+        return dp[short_len-1][long_len-1]
+
+s = Solution().longestCommonSubsequence("abcdef","acf")
+print(s)

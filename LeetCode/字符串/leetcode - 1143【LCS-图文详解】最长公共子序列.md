@@ -31,6 +31,47 @@ DP[0][j] 和 DP[i][0] 均为0，其实按照上面的意思就是：假如str1�
 
 所以，简单来说，这道题的解题过程就是把这个DP二维数组填完的过程；
 
+整体来看，思路如下：  
+1、str1[i]和str2[j]的每个字符都相互比较，以此来实现填写上述表的过程(for循环嵌套)；  
+2、当str1[i] == str2[j]，说明此时lcs要增加1，这个地方就是<font color="red">第一个思维重点</font>：
 
-假如：我们要填：DP[2][3]的值，也就是说要计算 str1 = str1[0:3] = "abc" 与str2 = str2[0:2] = "ac" 的最长公共子序列，我们如何得到？ -> 这个其实就是本题解法中的转移方程；
+	要从DP[i-1][j-1]的基础上增加1作为DP[i][j]的值；
 
+	之所以这么做主要原因就是为了防止出现str1[i]和str2[j]以及str2[j-1]都相同的情况，所以只有用DP[i-1][j-1] 表示i和j同时加1后两个字符相同，lcs才加了1；
+	
+	比如如下：
+			a	b	b
+		a	1	1	1
+		b	1	2	? -> 这个地方如果不用dp[i-1][j-1] + 1，就无法计算
+		
+
+3、当str1[i] != str2[j]，这个时候会出现本题的<font color="red">第二个思维重点</font>：
+	
+	其实我们要判断的，当str1[i] != str2[j]，那么DP[i][j]应该放什么？
+
+	其实很简单：放max(DP[i-1][j],DP[i][j-1])；
+	原因：要保证DP[i][j]永远是已经填写过的内容中最大的值，然而在i或者j加1之前最大的，不就是DP[i-1][j],DP[i][j-1]么？
+
+
+通过上面的分析，代码就很简单了：
+
+	def longestCommonSubsequence(self,str1,str2):
+		len1 = len(str1)+1		#	+1 是为了保证base case
+		len2 = len(str2)+1
+		
+		#	生成 dp table
+		dp = [	[0]*len1 for i in range(len2)]
+		
+		for i in range(1,len1):
+			for j in range(1,len2):
+	
+				if str1[i] == str2[j]:
+					dp[i][j] = dp[i-1][j-1] + 1
+				
+				if str1[i] != str2[j]:
+					dp[i][j] = max(dp[i-1][j],dp[i][j-1])
+		
+		return dp[len1-1][len2-1]
+
+
+				
