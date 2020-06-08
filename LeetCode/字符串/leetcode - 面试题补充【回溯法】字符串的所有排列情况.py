@@ -11,7 +11,7 @@
 #   3、递归的出口：当上层传入的上层未选择的字符串为空，也就是说都选了，那么就可以跳出递归了；
 
 
-def backtrack(S, path):        #   从当前的S中
+def backtrack(S, path):        #   从当前的S中进行选择，path是当前已经选了的；
     if S == '':             #   结束条件，可以将全路径放到res中了
         res.append(path)
         return
