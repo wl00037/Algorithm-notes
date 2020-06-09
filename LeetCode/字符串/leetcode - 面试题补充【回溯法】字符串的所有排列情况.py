@@ -12,7 +12,7 @@
 
 
 def backtrack(S, path):        #   从当前的S中进行选择，path是当前已经选了的；
-    if S == '':             #   结束条件，可以将全路径放到res中了
+    if S == '':                #   结束条件，可以将全路径放到res中了
         res.append(path)
         return
     for i in range(len(S)):
