@@ -13,16 +13,24 @@
 
 
 class Solution(object):
+    #
+    #   方法：回溯法
+    #   思路：
+    #   1、target分别减去每一个索引位的值，比如targte-2=5，然后从[2,3,6,7]中找到组合起来等于5的
+    #   2、再将5分别减去2、3、6、7，然后再从2、3、6、7中找到组合分别为3，2，-1，-2的组合
+    #   3、
     def combinationSum(self, candidates, target):
         """
         :type candidates: List[int]
         :type target: int
         :rtype: List[List[int]]
         """
+        target = target
+        print(target)
 
 
-l = [-1,2,1,-4]
-target = 0
-result = Solution().twoSum_ByDict(l,target)
+l = [2,3,6,7]
+target = 7
+result = Solution().combinationSum(l,target)
 print(result)
 
