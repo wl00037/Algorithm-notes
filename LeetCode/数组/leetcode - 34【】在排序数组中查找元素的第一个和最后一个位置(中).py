@@ -13,8 +13,11 @@ class Solution(object):
         """
         left,right = 0,len(nums)
         while left < right:
-            mid = left + (right - left) // 2        #   这个地方用 mid = left + (right - left) // 2 比较好
+
+            #   下面是两种求mid的方式
+            mid = left + (right - left) // 2
             mid = (left + right ) //2
+
             if nums[mid] > target:
                 right = mid
             elif nums[mid] < target:
