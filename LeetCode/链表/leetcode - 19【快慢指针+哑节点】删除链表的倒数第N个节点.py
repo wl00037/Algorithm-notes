@@ -23,8 +23,10 @@ class Solution(object):
         :type n: int
         :rtype: ListNode
         """
-        fast,slow,tmp = head,head,head
-        while(n>0 and fast.next != None):
+        Ya_node = ListNode(None)                        #   哑节点
+
+        fast,slow,tmp = head,Ya_node,Ya_node
+        while(n>0):
             fast = fast.next
             n -= 1
 
@@ -34,7 +36,7 @@ class Solution(object):
             fast = fast.next
 
         #   此时的slow位于倒数第k个节点，tmp位于上一个节点
-        tmp.next = slow.next if slow.next != None else None
+
         return head
 
 
