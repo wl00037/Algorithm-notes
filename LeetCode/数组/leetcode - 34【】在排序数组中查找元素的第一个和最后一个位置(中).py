@@ -12,8 +12,9 @@ class Solution(object):
         :rtype: List[int]
         """
         left,right = 0,len(nums)
-        while left <= right:
-            mid = (left + right ) // 2
+        while left < right:
+            mid = left + (right - left) // 2        #   这个地方用 mid = left + (right - left) // 2 比较好
+            mid = (left + right ) //2
             if nums[mid] > target:
                 right = mid
             elif nums[mid] < target:
@@ -30,7 +31,7 @@ class Solution(object):
 
 l = [1]
 l2 = [5,7,7,8,8,10]
-target = 8
+target = 1
 result = Solution().searchRange(l,target)
 print(result)
 
