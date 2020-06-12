@@ -13,31 +13,34 @@ class ListNode(object):                         #   指针结构定义
         self.next = None
 
 class Solution(object):
+    
     #   思路：
-    #       1、快指针先走n步，然后slow和fast向前，当fast=None，slow到达倒数第n个
-    #       2、删除slow即可
-    #       3、不同于找到，本题还需要删除，所以还要记录倒数第K个节点的前一个节点
+    #       1、非常类似寻找倒数第K个节点，只不过我们要换一个思路，我们要找到倒数第k+1个节点，然后k+1.next = k+1.next.next 也就等于删除了k节点
+    #       2、使用哑节点，为的就是处理 ([1],1) 这种case，
+    #           将dummy.next=head，并且slow,fast=dummy,dummy，代码逻辑没有变化，但是保证了不出现([1],1)这类case的报错；
+    #
     def removeNthFromEnd(self, head, n):
         """
         :type head: ListNode
         :type n: int
         :rtype: ListNode
         """
-        Ya_node = ListNode(None)                        #   哑节点
+        dummy = ListNode(None)
+        dummy.next = head
+        slow,fast = dummy,dummy
 
-        fast,slow,tmp = head,Ya_node,Ya_node
-        while(n>0):
+        while(n+1>0):
             fast = fast.next
-            n -= 1
+            n += 1
 
-        while (fast != None):
-            tmp = slow
+        while(fast != None):
             slow = slow.next
             fast = fast.next
 
-        #   此时的slow位于倒数第k个节点，tmp位于上一个节点
+        #   此时的slow就到达了 倒数第 n+1 个节点
+        slow.next = slow.next.next              #       删除倒数第k个节点
 
-        return head
+        return dummy.next
 
 
 if __name__ == "__main__":
