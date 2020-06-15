@@ -13,8 +13,9 @@ class ListNode(object):                         #   指针结构定义
         self.next = None
 
 class Solution(object):
-    
+
     #   思路：
+    #           <目前来看，哑节点适合用于对链表进行增删操时使用>
     #       1、非常类似寻找倒数第K个节点，只不过我们要换一个思路，我们要找到倒数第k+1个节点，然后k+1.next = k+1.next.next 也就等于删除了k节点
     #       2、使用哑节点，为的就是处理 ([1],1) 这种case，
     #           将dummy.next=head，并且slow,fast=dummy,dummy，代码逻辑没有变化，但是保证了不出现([1],1)这类case的报错；
