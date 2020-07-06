@@ -17,10 +17,13 @@ class Solution(object):
         res = set()
         res.add(())
         for num in nums:
-            for tmp in res:
-                if not tmp or num >=tmp[-1]:
-                    res.add(tmp+(num,))
-        return res
+            for tmp in res.copy():
+                #   这个地方一定要用res.copy()，否则会报错，错误如下：
+                #   RuntimeError: Set changed size during iteration - 迭代器不能在迭代构成中更改值
+                if len(tmp) == 0 or num >= tmp[-1]:
+                    n = tmp+(num,)
+                    res.add(n)
+        return [result for result in res if len(result)>=2]     #   然后将所有满足上升条件的元组再过滤，只留下长度大于2的
 
 result = Solution().findSubsequences([4, 6, 7, 7])
 print(result)
