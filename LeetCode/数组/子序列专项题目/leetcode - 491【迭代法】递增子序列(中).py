@@ -14,7 +14,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        res = set()
+        res = set()         #   res = set(())不行，还必须得用res.add(())
         res.add(())
         for num in nums:
             for tmp in res.copy():
@@ -25,6 +25,6 @@ class Solution(object):
                     res.add(n)
         return [result for result in res if len(result)>=2]     #   然后将所有满足上升条件的元组再过滤，只留下长度大于2的
 
-result = Solution().findSubsequences([4, 6, 7, 7])
-print(result)
+result = Solution().findSubsequences([1,1,1,2,2,2,3,3,3])
+print(len(result),result)
 
