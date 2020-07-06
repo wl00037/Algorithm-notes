@@ -40,16 +40,28 @@ class Solution(object):
     #   dp[i]表示：当前元素作为子序列的最后一个元素时，该子序列的最大上升子序列的长度
     #   然后从dp列表中找到最大的数，并且统计出来即可
     def findNumberOfLIS(self, nums):
-        curr_max_len = float("-inf")
-        curr_max_len_sublist = []
         dp = [1] * len(nums)
+        counter = [1] * len(nums)     #   以nums[i]作为序列结尾，其内部最长子序列的个数(注意，不是指最长子序列长度，而是指有几个最长子序列)
+        #      大体思路和我完全一样，就是处理counter上不一样
         for i, num in enumerate(nums):
             for j in range(i):  # 每次还需要再遍历一次0-i这个区域，根据每一个索引位的大小，判断此时的num是否可以加在后面；
                 if nums[j] < num:
-                    dp[i] = max(dp[i], dp[j] + 1)
+                    if dp[j]+1 > dp[i]:
+                        #   这个表示当前i索引位作为子序列最后一个元素，此时发现了更长上升子序列的情况，所以要将counter[i]初始化，就是初始化成counter[j]
+                        #   因为counter[j]有多少种情况，后面分别新加一个nums[j]，情况是不会变的，还是那些；
+                        dp[i] = dp[j]+1
+                        counter[i] = counter[j]
+                    elif dp[j]+1 == dp[i]:
+                        #   表示当其他元素作为子序列的结尾，也出现了子序列长度和当前最长一样的情况；
+                        #   那么将这些和当前最长子序列的相同的情况，分别加上nums[i]，又是counter[j]个新的情况；
+                        #   即：counter[i] = counter[i] + counter[j]
+                        counter[i] = counter[i] + counter[j]
+        tmp = max(dp)       #   拿到dp中最大上升子序列的长度
+        res = sum([counter[i] for i in range(len(nums)) if dp[i] == tmp])
+        return (res)
 
 
 l1 = [1,1,1,2,2,2,3,3,3]
 l2 = [2,2,2,2,2]
-max_len,result = Solution().findNumberOfLIS(l1)
-print(max_len,result,len(result))
+count= Solution().findNumberOfLIS(l1)
+print(count)
