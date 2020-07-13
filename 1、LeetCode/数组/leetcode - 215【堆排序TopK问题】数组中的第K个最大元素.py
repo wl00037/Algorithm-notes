@@ -26,7 +26,8 @@ class Solution(object):
                 continue
         return  nums[0]
 
-    def heapSort(self,nums,k):
+    def heapSort(self,nums,root,k):
+        #   heapSort方法作用是判断root是否是root、left、right三个节点中最小的，
         #   小顶堆就是：(根、非叶子)节点永远小于它的子节点；
         #   注意，传入的k是个数，索引位实际上是 [0~k-1]闭集；
 
@@ -35,6 +36,4 @@ class Solution(object):
             left = root * 2 +1
             right = root * 2 +1
             if
-
-                https: // www.zhihu.com / question / 62374994
 
