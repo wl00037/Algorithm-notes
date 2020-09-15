@@ -10,8 +10,10 @@ class Solution(object):
     #方法一：两次遍历，时间复杂度：2n ->O(n)
     def shortestToChar(self, S, C):
         # 思路：
-        # 如果从index=x开始后面的字符串不再有字符C，那么后面的字符距离最近的字符C最近的距离就是距离index=x的距离，即第一遍从左向右遍历的意义；
-        # 如果有场景：index=x和index=y之间的字符串，那么从右向左的第二次遍历则是处理距离右侧C比左侧C更近的情况；
+        # 第一遍 - 从左到右遍历：找到每个字符距离左侧最近目标字符的最短路径A；
+        # 第二遍 - 从右到左遍历：找到每个字符距离右侧最近目标字符的最短路径BS；
+        # 取A和B的最小值，就是最短路径
+
         prev = float('-inf')
         result = []
         for index, value in enumerate(S):
