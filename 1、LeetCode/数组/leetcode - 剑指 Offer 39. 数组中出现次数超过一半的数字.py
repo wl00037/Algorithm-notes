@@ -13,7 +13,7 @@ class Solution(object):
         new_dict = dict()
         for i in range(0,len(nums)):
             count = new_dict.get(nums[i],1)
-            if count >= len(nums)/2:
+            if count > len(nums)/2:
                 return nums[i]
             else:
                 new_dict[nums[i]] = count + 1
@@ -25,7 +25,7 @@ class Solution(object):
     def majorityElement_Bysort(self, nums):
         return sorted(nums)[len(nums)//2]
 
-nums = [1, 2, 3, 2, 2, 2, 5, 4, 2]
-result = Solution().majorityElement_Bysort(nums)
+nums = [2,2,1,1,1,2,2]
+result = Solution().majorityElement_Bydict(nums)
 print(result)
 
