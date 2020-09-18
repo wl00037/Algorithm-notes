@@ -13,7 +13,53 @@
 
 #   看题目废话一堆，实际上就是：从四组 1~13 + 4个0 中随机取出45个数，查看是否可以组成顺子，0可以作为任何数字使用
 
+import random
+
 class Solution:
     def IsContinuous(self, numbers):
+        numbers.sort()      #   排序
+        zero_count = 0      #   0出现的次数
+
+        for i in range(0,5):    #   为了过滤出0出现的次数
+            if numbers[i] == 0:
+                zero_count += 1
+                continue
+        No_zero_list = numbers[zero_count:]
+        if len(set(No_zero_list)) != 5-zero_count:
+            print("出现不同花色的重复牌，无法组成顺子")
+            return  False
+
+        differencevalue = max(No_zero_list) - min(No_zero_list) - 1 - (len(No_zero_list) - 2) - zero_count
+
+        if differencevalue == 0:
+            print("可以组成顺子")
+            return True
+        print("无法组成顺子")
+        return False
+
+    def SimulationLicensing(self):
+        #   模拟：随机抽牌的方法
+        #   方法一：使用random.shuffle() 直接将数组打乱，然后取[0,5]
+        #   方法二：使用random.choice() 循环五次每次随机选取一个数，这个方法取要将取除的数从数组中删除
+
+        new_list = [1,2,3,4,5,6,7,8,9,10,11,12,13] * 4
+        new_list.extend([0,0,0,0])
+        mychoice = []
+        count = 5
+        while count > 0 :
+            number = random.choice(new_list)
+            mychoice.append(number)
+            new_list.remove(number)     # 将抽出的数字number从new_list中删除
+            count -= 1
+        print("随机抽取的牌为：",mychoice)
+        return mychoice
+
+s = Solution()
+result = s.IsContinuous(s.SimulationLicensing())
+print( result)
+
+
+
+
 
 
