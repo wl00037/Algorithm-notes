@@ -13,8 +13,6 @@ def getJson(inputstr):
         if isinstance(value,dict):
             result_list.append(value)
             getJson(json.dumps(value))
-    return result_list
-result = getJson(inputstr)
-
-print(result)
+getJson(inputstr)
+print(result_list)
 

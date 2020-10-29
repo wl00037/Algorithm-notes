@@ -11,7 +11,7 @@ lockA=threading.Lock()
 lockB=threading.Lock()
 
 Q = queue.Queue()
-for i in range(1,5):
+for i in range(1,100):
     Q.put(i)
 
 def printA():
