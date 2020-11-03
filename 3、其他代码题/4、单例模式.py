@@ -1,20 +1,19 @@
 
-#假设给定一个字符串：inputstr = json.dumps({"a":{"a1":1},"b":2})，遍历出所有的符合json格式的value，包括嵌套的；
+import threading
 
-import json
+class singleton:
 
-inputstr = json.dumps({"a":{"a1":{"a11":1}},"b":2})
-result_list = []
-def getJson(inputstr):
-    load_data = json.loads(inputstr)
-    if not isinstance(load_data,dict):
-        return
-    for key,value in load_data.items():
-        if isinstance(value,dict):
-            result_list.append(value)
-            getJson(json.dumps(value))
-    return result_list
-result = getJson(inputstr)
+    _singleton_lock = threading.Lock()
 
-print(result)
+    def __init__(self):
+        pass
+
+    @classmethod        # 可以直接用singleton类来调用了
+    def instance(cls):
+        if not hasattr(singleton,"_single"):
+            with singleton._singleton_lock:
+                if not hasattr(singleton,"_single"):
+                    singleton._single = singleton()
+        return singleton._single
+
 
