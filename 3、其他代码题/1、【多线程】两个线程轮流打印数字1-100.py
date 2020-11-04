@@ -15,21 +15,15 @@ for i in range(1,100):
     Q.put(i)
 
 def printA():
-    if Q.qsize() == 0:
-        return
     lockA.acquire()
     print("printA",Q.get())
     lockB.release()
-    time.sleep(1)
     printA()
 
 def printB():
-    if Q.qsize() == 0:
-        return
     lockB.acquire()
     print("printB",Q.get())
     lockA.release()
-    time.sleep(1)
     printB()
 
 tA=threading.Thread(target=printA)
