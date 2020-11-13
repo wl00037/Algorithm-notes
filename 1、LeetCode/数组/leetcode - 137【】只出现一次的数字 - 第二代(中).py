@@ -9,5 +9,18 @@
 
 class Solution(object):
 
+    #   方法一（常规方法）：字典进行统计
     def singleNumber(self, nums):
+        d = dict()
+        for index,value in enumerate(nums):
+            d[value] = d.get(value,0) + 1
+        return sorted(d.items(),key=lambda i:i[1])[0][0]
+
+    #   方法二：利用位运算符
+    def singleNumber_2(self,nums):
         pass
+
+
+l=[2,2,3,2]
+result = Solution().singleNumber(l)
+print(result)
