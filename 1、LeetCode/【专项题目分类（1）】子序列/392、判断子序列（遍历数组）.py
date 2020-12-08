@@ -5,7 +5,7 @@
 
 class Solution(object):
 
-    #   while循环，想通过s和t都后推一位，不同t后推一位
+    #   while循环，相同则s和t都后推一位，不同t后推一位
     def isSubsequence(self, s, t):
         istart,tstart = 0,0
         while istart<len(s) and tstart<len(t):

@@ -19,7 +19,7 @@ class Solution(object):
     #   简单来说就是：每一行行号与上面所有行的数据分别相加，得到新的行的内容
 
     def subsets_iteration(self, nums):
-        res = [[]]  #   子集也包括空集，所以要加上
+        res = [[]]  #   子集也包括空集，所以要加上，并且空集可以每次与元素单一本身相加，将元素自身也加到子集内
         for i in range(0,len(nums)):
             current_res_len = len(res)
             for j in range(0,current_res_len):      #   利用了list有序的特点，可以每次只拿当前长度的范围做循环
