@@ -7,41 +7,43 @@ import threading
 import queue
 import time
 
+# ********************************************************* 方法一：锁 ****************************************************************** #
 
-lockA=threading.Lock()
-lockB=threading.Lock()
+#   注：Python中threading.Lock作用就是控制一段代码，确保多线程环境下调度不出现混乱，一定要牢记，Lock的作用对象是一段代码块！
+
+#   另外简单说一下：
+#       Lock锁会阻塞申请锁的线程的同一代码段的递归执行；
+#       RLock锁只会阻塞其他线程代码段执行，不会阻塞同一线程的递归执行，所以RLock也叫递归锁；
 
 Q = queue.Queue()
 for i in range(1,100):
     Q.put(i)
 
+lockA=threading.Lock()      #   创建两把锁
+lockB=threading.Lock()
 
-# 方法一：采用锁
 def printA():
-    lockA.acquire()
+    lockA.acquire()                 #   LockA锁的是printA中的代码块
     print("printA",Q.get())
-    lockB.release()
-    printA()
+    lockB.release()                 #   这里会释放掉LockB，使LockB可以递归继续，如果这里不释放LockB，printB会阻塞，就不会释放LockA，LockA也会阻塞
+    printA()                        #   这里我们会发现有递归，但是如果我们递归到printA时，并且还没有释放LockA，那么就会阻塞，知道LockA被释放
 
 def printB():
-    lockB.acquire()
+    lockB.acquire()                 #   LockB锁的是printB的代码块
     print("printB",Q.get())
-    lockA.release()
+    lockA.release()                 #   这里释放了LockA，所以PrintA的线程可以继续执行下去，直到LockB的释放，并PrintA自己阻塞到下一次；
     printB()
 
 tA=threading.Thread(target=printA)
 tB=threading.Thread(target=printB)
-
 lockB.acquire()
 tA.start()
 tB.start()
 
-# ***************************方法二：采用事件，用主线程来控制子线程的执行逻辑*************************************
-
+# *********************************************** 方法二：采用事件，用主线程来控制子线程的执行逻辑 *************************************************** #
 Q = queue.Queue()
 for i in range(1,101):
     Q.put(i)
-
 event_a = threading.Event()     # 默认wait()的标志都是False，即阻塞
 event_b = threading.Event()
 
