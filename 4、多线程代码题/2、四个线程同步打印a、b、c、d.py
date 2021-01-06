@@ -13,32 +13,32 @@ d_event = threading.Event()
 #   Event()可以创建一个事件管理标志，该标志（event）默认为False；
 #   事件主要用于主线程控制其他线程的执行，Event主要提供的三个方法为wait、clear、set；
 
-def print_a(curretn_event, next_event):
+def print_a(current_event, next_event):
     for i in range(3):
-        curretn_event.wait()        # 如果event.isSet()==False将阻塞线程
+        current_event.wait()        # 如果event.isSet()==False将阻塞线程，默认为False，所以开始时要先把a_event.set()，设置为True，否则这里就阻塞了；
         print('a')
-        curretn_event.clear()       # 恢复event的状态值为False
+        current_event.clear()       # 恢复event的状态值为False
         next_event.set()            # 置event的状态值为True
 
-def print_b(curretn_event, next_event):
+def print_b(current_event, next_event):
     for i in range(3):
-        curretn_event.wait()
+        current_event.wait()
         print('b')
-        curretn_event.clear()
+        current_event.clear()
         next_event.set()
 
-def print_c(curretn_event, next_event):
+def print_c(current_event, next_event):
     for i in range(3):
-        curretn_event.wait()
+        current_event.wait()
         print('c')
-        curretn_event.clear()
+        current_event.clear()
         next_event.set()
 
-def print_d(curretn_event, next_event):
+def print_d(current_event, next_event):
     for i in range(3):
-        curretn_event.wait()
+        current_event.wait()
         print('d')
-        curretn_event.clear()
+        current_event.clear()
         next_event.set()
 
 a_thread = threading.Thread(target=print_a, args=(a_event, b_event))
