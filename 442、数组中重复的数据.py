@@ -29,7 +29,7 @@ class Solution(object):
         new_list = [0] * (len(nums)+1)
         result = []
         for i in nums:
-            if new_list[i] == 0 :
+            if new_list[i] == 0:
                 new_list[i] = i
             else:
                 result.append(i)
@@ -37,21 +37,20 @@ class Solution(object):
 
     #   <如果不允许采用新的空间，那么方法二就不可行，题目中其实不允许>
     #   方法三：
+    #       对出现过的元素在其对应的索引位上进行标记，标记方式就是为负（nums[i]的映射对应nums[i]-1）
+    #       注：判断过程中要用abs(num)来取正，否则取负的话等于索引位为负，肯定不对
     def findDuplicates3(self,nums):
 
-        new_list = [0] * (len(nums)+1)
         result = []
-        for i in nums:
-            if new_list[i] == 0 :
-                new_list[i] = i
-            else:
-                result.append(i)
+        for num in nums:
+            if nums[abs(num)-1] > 0 :   #   判断abs(num)-1索引位上的值是否>0，大于0表示未出现过
+                nums[abs(num) - 1] *= -1
+            else:                       #   小于0就表示出现过，append到result中
+                result.append(abs(num))
         return result
 
 
-
-
 l = [4,3,2,7,8,2,3,1]
-result = Solution().findDuplicates2(l)
+result = Solution().findDuplicates3(l)
 print(result)
 
