@@ -36,7 +36,7 @@ class Solution(object):
         return result
 
     #   <如果不允许采用新的空间，那么方法二就不可行，题目中其实不允许>
-    #   方法三：
+    #   方法三：利用数组下标；
     def findDuplicates3(self,nums):
 
         new_list = [0] * (len(nums)+1)
