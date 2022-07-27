@@ -1,0 +1,38 @@
+
+# 题目：
+# 给定两个大小分别为 m 和 n 的正序（从小到大）数组nums1和nums2。请你找出并返回这两个正序数组的中位数。
+# 算法的时间复杂度应该为 O(log (m+n))。
+# m+n为奇数，则取(m+n)//2为中位数，为偶为取 (m+n)//2 + (m+n)//2+1 两个数的平均数为中位数
+
+class Solution(object):
+
+    # 思路：将两个正序数组先排序为一个数组，然后取中位数
+    def Solution_1(self , nums1, nums2):
+
+        all_arrays = []
+        while (len(nums1) > 0 and len(nums2) > 0):
+            if nums1[0] < nums2[0]:
+                all_arrays.append(nums1.pop(0))
+            else:
+                all_arrays.append(nums2.pop(0))
+
+        if len(nums1) > 0:
+            all_arrays.extend(nums1)
+        else:
+            all_arrays.extend(nums2)
+
+        if len(all_arrays) % 2 == 0:
+            mid1 = len(all_arrays) // 2 - 1
+            mid2 = len(all_arrays) // 2
+            return (all_arrays[mid1] + all_arrays[mid2]) / 2
+        else:
+            return (all_arrays[len(all_arrays)//2])
+
+
+if __name__ == "__main__":
+    
+    array1 = [1,2]
+    array2 = [3,4]
+    s = Solution()
+    r = s.Solution_1(array1,array2)
+    print("查找到的中位数为：" + str(r))
