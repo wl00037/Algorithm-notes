@@ -9,10 +9,6 @@
 class Solution(object):
 
     # 方法：滑动窗口
-    # 思路：
-    # 1.
-    # 2.
-    # 3.
     def findLengthOfLCIS(self, nums):
 
         if not nums:
